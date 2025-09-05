@@ -1,30 +1,36 @@
 import java.io.File;
 import java.io.FileReader;
-import java.io.BufferedReader;
 import java.util.HashMap;
-
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        HashMap<String, String> Liste = new HashMap<String, String>();
+        HashMap<Integer, String> episodes = new HashMap<Integer, String>();
+        HashMap<Integer, String> descriptions = new HashMap<Integer, String>();
         try {
-            File myObj = new File("test.txt");
+            File myObj = new File("test.tsv");
             FileReader input = new FileReader(myObj);
-            BufferedReader br = new BufferedReader(input);
+            Scanner sc = new Scanner(input);
 
-            String line;
+            String name;
+            String desc;
+            int episodeNumber = 1;
 
-            while ((line = br.readLine()) != null) {
-                if (line.contains("\"Episode\"")) {
-                    String episodeName = br.readLine().trim();
-                    String episodeDescription = br.readLine().trim();
-                    Liste.put(episodeName, episodeDescription);
-                }
+
+            sc.useDelimiter("\t");
+            while (sc.hasNextLine()) {
+                name = sc.next();
+                episodes.put(episodeNumber, name);
+                desc = sc.nextLine();
+                descriptions.put(episodeNumber, desc.trim());
+                episodeNumber++;
             }
-            br.close();
-            System.out.println(Liste);
-            System.out.println(Liste.size());
+
+            System.out.println(episodes);
+            System.out.println(descriptions);
+            sc.close();
+
         } catch (Exception e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
