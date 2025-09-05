@@ -1,0 +1,17 @@
+[
+  {
+    "Episode"
+	Aushilfe gesucht!
+	Spongebob isst viel.
+  },
+  {
+    "Episode"
+	Aushilfe gefeuert!
+	Spongebob wurde gefeuert!
+  },
+  {
+    "Episode"
+	Verlorene Episode
+	Eine unveröffentlichte Episode, in der Spongebob isst.
+  }
+]
