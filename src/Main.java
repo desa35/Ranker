@@ -89,7 +89,6 @@ public class Main {
                 if (decision.equals("1")) {
 
                     episodesRanked.add(episodesRanked.indexOf(episodesRanked.get(alreadyRanked)) + 1, episodes.get(rankNewEpisode));
-                    episodes.remove(rankNewEpisode);
                     decisionValid = true;
 
                 } else if (decision.equals("2")) {
