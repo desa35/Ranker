@@ -22,6 +22,8 @@ public class Main {
             int entryNumber = 1;
 
             sc.useDelimiter("\t");
+
+            // Converts .tsv file into usable HasMaps
             while (sc.hasNextLine()) {
                 name = sc.next();
                 entries.put(entryNumber, name);
@@ -44,11 +46,10 @@ public class Main {
         // Sets up number array for randomization
         List<Integer> whichEntryNext = new ArrayList<>();
 
-        // Populates with numbers from 1 to amount of list entries
+        // Populates with numbers from 1 to amount of list entries and shuffles them afterwards
         for (int i = 1; i <= entries.size(); i++) {
             whichEntryNext.add(i);
         }
-
         shuffle(whichEntryNext);
 
         int newEntryIndex = 0;
@@ -76,6 +77,7 @@ public class Main {
                 continue;
             }
 
+            // Skips calculation of remaining entry if condition is met, otherwise checks for "middle" entry
             if (finalRankedList.size() == 1) {
                 rankedEntryName = finalRankedList.get(0);
             } else {
@@ -83,7 +85,6 @@ public class Main {
                 middleEntryOfRankedIndex = (int) Math.floor((tempRankedList.size() - 1) / 2.0);
                 rankedEntryName = tempRankedList.get(middleEntryOfRankedIndex);
                 rankedEntryIndex = tempRankedList.indexOf(rankedEntryName);
-
                 rankedEntryName = tempRankedList.get(rankedEntryIndex);
             }
 
@@ -97,6 +98,7 @@ public class Main {
                 Scanner sc = new Scanner(System.in);
                 String decision = sc.nextLine();
 
+                // 1 = new entry is better than current comparison; 2 = new entry is worse than current comparison
                 if (decision.equals("1")) {
 
                     if (tempRankedList.size() == 1) {
@@ -105,6 +107,7 @@ public class Main {
                         tempRankedList.clear();
                     } else {
 
+                        // Removes irrelevant half of the list (Anything worse than current comparison including itself)
                         for (int i = tempRankedList.size(); i >= 0; i--) {
                             if (rankedEntryIndex >= i) {
                                 tempRankedList.remove(i);
@@ -123,6 +126,7 @@ public class Main {
                         tempRankedList.clear();
                     } else {
 
+                        // Removes irrelevant half of the list (Anything better than the current comparison including itself)
                         for (int i = tempRankedList.size() - 1; i >= 0; i--) {
                             if (rankedEntryIndex <= i) {
                                 tempRankedList.remove(i);
@@ -139,6 +143,7 @@ public class Main {
                 }
             }
 
+            // Temporary solution to check final list. Will be replaced / removed in the future
             System.out.println("fRL content: " + finalRankedList);
         }
 
