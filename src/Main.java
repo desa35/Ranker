@@ -56,14 +56,14 @@ public class Main {
 
         boolean needNewEpisode = true;
 
-        String newEpisode = "";
-        String rankedEpisode = "";
+        String newEpisodeName = "";
+        String rankedEpisodeName = "";
 
         while(finalRankedList.size() < episodes.size()) {
 
             if (needNewEpisode) {
                 rankNewEpisodeIndex = whichEpisodeNext.remove(0);
-                newEpisode = episodes.get(rankNewEpisodeIndex);
+                newEpisodeName = episodes.get(rankNewEpisodeIndex);
 //                needNewEpisode = false;
             }
 
@@ -73,16 +73,16 @@ public class Main {
             }
 
             if (finalRankedList.size() == 1) {
-                rankedEpisode = finalRankedList.get(0);
+                rankedEpisodeName = finalRankedList.get(0);
             } else {
                 middleEntryOfRanked = (int) Math.ceil(finalRankedList.size() / 2.0);
 
                 alreadyRankedIndex = finalRankedList.indexOf(finalRankedList.get(middleEntryOfRanked));
-                rankedEpisode = finalRankedList.get(alreadyRankedIndex);
+                rankedEpisodeName = finalRankedList.get(alreadyRankedIndex);
             }
 
                 System.out.println("Welche Folge ist die bessere, 1 oder 2?");
-                System.out.println(newEpisode + " oder " + rankedEpisode);
+                System.out.println(newEpisodeName + " oder " + rankedEpisodeName);
 
             boolean decisionValid = false;
 
