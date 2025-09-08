@@ -21,7 +21,6 @@ public class Main {
             String desc;
             int episodeNumber = 1;
 
-
             sc.useDelimiter("\t");
             while (sc.hasNextLine()) {
                 name = sc.next();
@@ -39,7 +38,7 @@ public class Main {
         }
 
         // Sets up what will be the final Array containing the rankings
-        ArrayList<String> episodesRanked = new ArrayList<>();
+        ArrayList<String> finalRankedList = new ArrayList<>();
 
         // Sets up number array for randomization
         List<Integer> whichEpisodeNext = new ArrayList<>();
@@ -51,9 +50,8 @@ public class Main {
 
         shuffle(whichEpisodeNext);
 
-        // Uses shuffled array of numbers to avoid duplicates without having to memorize those
-        int rankNewEpisode = whichEpisodeNext.remove(0);
-        int alreadyRanked = 0;
+        int rankNewEpisodeIndex = 0;
+        int alreadyRankedIndex = 0;
         int middleEntryOfRanked;
 
         boolean needNewEpisode = true;
@@ -61,24 +59,26 @@ public class Main {
         String newEpisode = "";
         String rankedEpisode = "";
 
-        // Adds newly chosen list entry to final ranking (First entry so no choice required)
-        episodesRanked.add(episodes.get(rankNewEpisode));
-
-        while(episodesRanked.size() < episodes.size()) {
+        while(finalRankedList.size() < episodes.size()) {
 
             if (needNewEpisode) {
-                rankNewEpisode = whichEpisodeNext.remove(0);
-                newEpisode = episodes.get(rankNewEpisode);
+                rankNewEpisodeIndex = whichEpisodeNext.remove(0);
+                newEpisode = episodes.get(rankNewEpisodeIndex);
 //                needNewEpisode = false;
             }
 
-            if (episodesRanked.size() == 1) {
-                rankedEpisode = episodesRanked.get(0);
-            } else {
-                middleEntryOfRanked = (int) Math.ceil(episodesRanked.size() / 2.0);
+            // Adds newly chosen list entry to final ranking (First entry so no choice required)
+            if (finalRankedList.isEmpty()) {
+                finalRankedList.add(episodes.get(rankNewEpisodeIndex));
+            }
 
-                alreadyRanked = episodesRanked.indexOf(episodesRanked.get(middleEntryOfRanked));
-                rankedEpisode = episodesRanked.get(alreadyRanked);
+            if (finalRankedList.size() == 1) {
+                rankedEpisode = finalRankedList.get(0);
+            } else {
+                middleEntryOfRanked = (int) Math.ceil(finalRankedList.size() / 2.0);
+
+                alreadyRankedIndex = finalRankedList.indexOf(finalRankedList.get(middleEntryOfRanked));
+                rankedEpisode = finalRankedList.get(alreadyRankedIndex);
             }
 
                 System.out.println("Welche Folge ist die bessere, 1 oder 2?");
@@ -93,12 +93,12 @@ public class Main {
 
                 if (decision.equals("1")) {
 
-                    episodesRanked.add(episodesRanked.indexOf(episodesRanked.get(alreadyRanked)) + 1, episodes.get(rankNewEpisode));
+                    finalRankedList.add(finalRankedList.indexOf(finalRankedList.get(alreadyRankedIndex)) + 1, episodes.get(rankNewEpisodeIndex));
                     decisionValid = true;
 
                 } else if (decision.equals("2")) {
 
-                    episodesRanked.add(episodesRanked.indexOf(episodesRanked.get(alreadyRanked)), episodes.get(rankNewEpisode));
+                    finalRankedList.add(finalRankedList.indexOf(finalRankedList.get(alreadyRankedIndex)), episodes.get(rankNewEpisodeIndex));
                     decisionValid = true;
 
                 } else {
@@ -108,7 +108,7 @@ public class Main {
                 }
             }
 
-            System.out.println(episodesRanked);
+            System.out.println(finalRankedList);
         }
 
 
