@@ -1,4 +1,7 @@
+package RankerGUI;
+
 import java.io.File;
+
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Scanner;
