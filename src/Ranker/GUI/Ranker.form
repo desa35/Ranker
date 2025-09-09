@@ -11,22 +11,22 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="c7966" class="javax.swing.JButton" binding="newEntry">
+      <component id="c7966" class="javax.swing.JButton" binding="newEntryWins">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="1.0" weighty="1.0"/>
         </constraints>
         <properties>
-          <text value="Die Linke"/>
+          <text value="Links"/>
         </properties>
       </component>
-      <component id="ea4ad" class="javax.swing.JButton" binding="comparisonEntry">
+      <component id="ea4ad" class="javax.swing.JButton" binding="comparisonEntryWins">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="1.0" weighty="1.0"/>
         </constraints>
         <properties>
-          <text value="Die Rechte"/>
+          <text value="Rechts"/>
         </properties>
       </component>
       <component id="c034c" class="javax.swing.JLabel" binding="decisionPrompt">
