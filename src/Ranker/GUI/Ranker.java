@@ -13,6 +13,7 @@ import java.util.Scanner;
 import static java.util.Collections.shuffle;
 
 public class Ranker extends JFrame{
+    private JPanel contentPane;
     private JButton newEntry;
     private JButton comparisonEntry;
     private JLabel decisionPrompt;
@@ -20,14 +21,18 @@ public class Ranker extends JFrame{
     private JLabel nameComparisonEntry;
     private JLabel descNewEntry;
     private JLabel descComparisonEntry;
-    private JPanel contentPane;
 
     public void RankingAlgorithm() {
+
 
         setTitle("Ranker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(contentPane);
         pack();
+
+        decisionPrompt.setText("Welcher dieser beiden ist besser?");
+
+        setLocationRelativeTo(null);
 
         setVisible(true);
 
@@ -111,7 +116,7 @@ public class Ranker extends JFrame{
 
             System.out.println("Welche Folge ist die bessere, 1 oder 2?");
             System.out.println(newEntryName + " oder " + rankedEntryName);
-            nameNewEntry.setText(newEntryName);
+//            nameNewEntry.setText(newEntryName);
 
             boolean decisionValid = false;
 

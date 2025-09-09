@@ -10,7 +10,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Ranker ranker = new Ranker();
-                ranker.setVisible(true);
+//                ranker.setVisible(true);
 
                 ranker.RankingAlgorithm();
             }
