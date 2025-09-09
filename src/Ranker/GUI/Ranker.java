@@ -1,17 +1,35 @@
-package RankerGUI;
+package Ranker.GUI;
 
+import Ranker.*;
+
+import javax.swing.*;
 import java.io.File;
-
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import static java.util.Collections.shuffle;
 
-public class Main {
-    public static void main(String[] args) {
+public class Ranker extends JFrame{
+    private JButton newEntry;
+    private JButton comparisonEntry;
+    private JLabel decisionPrompt;
+    private JLabel nameNewEntry;
+    private JLabel nameComparisonEntry;
+    private JLabel descNewEntry;
+    private JLabel descComparisonEntry;
+    private JPanel contentPane;
+
+    public void RankingAlgorithm() {
+
+        setTitle("Ranker");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setContentPane(contentPane);
+        pack();
+
+        setVisible(true);
 
         HashMap<Integer, String> entries = new HashMap<Integer, String>();
         HashMap<Integer, String> descriptions = new HashMap<Integer, String>();
@@ -93,6 +111,7 @@ public class Main {
 
             System.out.println("Welche Folge ist die bessere, 1 oder 2?");
             System.out.println(newEntryName + " oder " + rankedEntryName);
+            nameNewEntry.setText(newEntryName);
 
             boolean decisionValid = false;
 
@@ -124,7 +143,7 @@ public class Main {
                 } else if (decision.equals("2")) {
 
                     if (middleEntryOfRankedIndex == 0) {
-                        finalRankedList.add(finalRankedList.indexOf(finalRankedList.get(rankedEntryIndex)), entries.get(newEntryIndex));
+                        finalRankedList.add(finalRankedList.indexOf(rankedEntryName), entries.get(newEntryIndex));
                         needNewEntry = true;
                         tempRankedList.clear();
                     } else {
@@ -149,6 +168,7 @@ public class Main {
             // Temporary solution to check final list. Will be replaced / removed in the future
             System.out.println("fRL content: " + finalRankedList);
         }
-
     }
+
+
 }
