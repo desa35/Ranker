@@ -49,7 +49,7 @@
           <gridbag weightx="1.0" weighty="1.0"/>
         </constraints>
         <properties>
-          <font name="SansSerif" size="22" style="1"/>
+          <font name="SansSerif" size="20" style="1"/>
           <text value="Label"/>
         </properties>
       </component>
@@ -59,7 +59,7 @@
           <gridbag weightx="1.0" weighty="1.0"/>
         </constraints>
         <properties>
-          <font name="SansSerif" size="22" style="1"/>
+          <font name="SansSerif" size="20" style="1"/>
           <text value="Label"/>
         </properties>
       </component>
@@ -98,6 +98,24 @@
           <preferredSize width="463" height="86"/>
           <rows value="3"/>
           <wrapStyleWord value="true"/>
+        </properties>
+      </component>
+      <component id="1d4a2" class="javax.swing.JButton" binding="saveProgress">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Speichern"/>
+        </properties>
+      </component>
+      <component id="82d32" class="javax.swing.JButton" binding="undoDecision">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Rückgängig"/>
         </properties>
       </component>
     </children>
