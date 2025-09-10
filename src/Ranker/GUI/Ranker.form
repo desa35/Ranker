@@ -19,6 +19,7 @@
         </constraints>
         <properties>
           <font name="Arial Black" size="20"/>
+          <margin top="10" left="10" bottom="10" right="10"/>
           <text value="Links"/>
         </properties>
       </component>
@@ -29,6 +30,7 @@
         </constraints>
         <properties>
           <font name="Arial Black" size="20"/>
+          <margin top="10" left="10" bottom="10" right="10"/>
           <text value="Rechts"/>
         </properties>
       </component>
@@ -75,10 +77,12 @@
           <font name="SansSerif" size="16" style="0"/>
           <lineWrap value="true"/>
           <margin top="10" left="10" bottom="10" right="10"/>
-          <maximumSize width="463" height="42"/>
-          <minimumSize width="463" height="42"/>
+          <maximumSize width="512" height="80"/>
+          <minimumSize width="512" height="80"/>
           <opaque value="true"/>
-          <preferredSize width="463" height="42"/>
+          <preferredSize width="512" height="108"/>
+          <requestFocusEnabled value="false"/>
+          <rows value="4"/>
           <wrapStyleWord value="true"/>
         </properties>
       </component>
@@ -93,10 +97,10 @@
           <font name="SansSerif" size="16" style="0"/>
           <lineWrap value="true"/>
           <margin top="10" left="10" bottom="10" right="10"/>
-          <maximumSize width="463" height="42"/>
-          <minimumSize width="463" height="42"/>
-          <preferredSize width="463" height="86"/>
-          <rows value="3"/>
+          <maximumSize width="512" height="80"/>
+          <minimumSize width="512" height="80"/>
+          <preferredSize width="512" height="108"/>
+          <rows value="4"/>
           <wrapStyleWord value="true"/>
         </properties>
       </component>

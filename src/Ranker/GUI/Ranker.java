@@ -274,4 +274,8 @@ public class Ranker extends JFrame{
             e.printStackTrace();
         }
     }
+
+    private void undoChoice() {
+
+    }
 }
