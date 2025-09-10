@@ -57,22 +57,32 @@
           <text value="Label"/>
         </properties>
       </component>
-      <component id="d6b0" class="javax.swing.JLabel" binding="descNewEntry">
+      <component id="dc79" class="javax.swing.JTextArea" binding="descNewEntry">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="1.0" weighty="1.0"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <lineWrap value="true"/>
+          <opaque value="true"/>
+          <preferredSize width="1" height="180"/>
+          <wrapStyleWord value="true"/>
         </properties>
       </component>
-      <component id="95d05" class="javax.swing.JLabel" binding="descComparisonEntry">
+      <component id="61302" class="javax.swing.JTextArea" binding="descComparisonEntry">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="1.0" weighty="1.0"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <lineWrap value="true"/>
+          <preferredSize width="1" height="180"/>
+          <rows value="3"/>
+          <wrapStyleWord value="true"/>
         </properties>
       </component>
     </children>

@@ -19,8 +19,10 @@ public class Ranker extends JFrame{
     private JLabel decisionPrompt;
     private JLabel nameNewEntry;
     private JLabel nameComparisonEntry;
-    private JLabel descNewEntry;
-    private JLabel descComparisonEntry;
+//    private JLabel descNewEntry;
+//    private JLabel descComparisonEntry;
+    private JTextArea descNewEntry;
+    private JTextArea descComparisonEntry;
 
     HashMap<Integer, String> entries = new HashMap<Integer, String>();
     HashMap<String, String> descriptions = new HashMap<String, String>();
@@ -141,7 +143,7 @@ public class Ranker extends JFrame{
         comparisonEntryDesc = descriptions.get(comparisonEntryName);
     }
 
-    private void setLabels(JLabel nameNewEntry, JLabel nameComparisonEntry, JLabel descNewEntry, JLabel descComparisonEntry, String newEntryName, String comparisonEntryName, String newEntryDesc, String comparisonEntryDesc) {
+    private void setLabels(JLabel nameNewEntry, JLabel nameComparisonEntry, JTextArea descNewEntry, JTextArea descComparisonEntry, String newEntryName, String comparisonEntryName, String newEntryDesc, String comparisonEntryDesc) {
         nameNewEntry.setText(newEntryName);
         nameComparisonEntry.setText(comparisonEntryName);
         descNewEntry.setText(newEntryDesc);
