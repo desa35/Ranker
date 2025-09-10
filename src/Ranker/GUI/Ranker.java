@@ -24,8 +24,6 @@ public class Ranker extends JFrame{
     private JLabel nameComparisonEntry;
     private JTextArea descNewEntry;
     private JTextArea descComparisonEntry;
-    private JButton saveProgress;
-    private JButton undoDecision;
 
     HashMap<Integer, String> entries = new HashMap<Integer, String>();
     HashMap<String, String> descriptions = new HashMap<String, String>();
@@ -97,19 +95,16 @@ public class Ranker extends JFrame{
         }
 
         // No comparisons were left after the last round meaning the new Entry has been successfully ranked and a new one is required
-        // Currently always true. Condition is for future "Save & Continue" functionality
         if (tempRankedList.isEmpty() && !entries.isEmpty()) {
             newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
         }
 
         // Adds newly chosen list entry to final ranking (First entry so no choice required)
-        // Currently always true. Condition is for future "Save & Continue" functionality
         if (finalRankedList.isEmpty()) {
             finalRankedList.add(entries.get(newEntryIndex));
             tempRankedList.clear();
         }
 
-        // Currently always true. Condition is for future "Save & Continue" functionality
         if (tempRankedList.isEmpty() && !entries.isEmpty()) {
             newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
         }
@@ -124,11 +119,12 @@ public class Ranker extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 newEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
                 if (finalRankedList.size() == entries.size()) {
-                    createRankingFile(finalRankedList);
+                    writeIntoRankingFile();
                     setVisible(false);
                     return;
                 }
                 if (tempRankedList.isEmpty()) {
+                    saveProgress();
                     newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
                 }
                     getComparisonEntry(tempRankedList);
@@ -142,11 +138,12 @@ public class Ranker extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 comparisonEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
                 if (finalRankedList.size() == entries.size()) {
-                    createRankingFile(finalRankedList);
+                    writeIntoRankingFile();
                     setVisible(false);
                     return;
                 }
                 if (tempRankedList.isEmpty()) {
+                    saveProgress();
                     newEntrySetup(entries,descriptions, tempRankedList, finalRankedList, whichEntryNext);
                 }
                     getComparisonEntry(tempRankedList);
@@ -209,21 +206,6 @@ public class Ranker extends JFrame{
                     }
     }
 
-    private void createRankingFile(ArrayList finalRankedList) {
-        try {
-            File output = new File("output.tsv");
-            if (output.createNewFile()) {
-                System.out.println("File created: " + output.getName());
-            } else {
-                System.out.println("File already exists");
-            }
-            writeIntoRankingFile();
-        } catch (IOException e) {
-            System.out.println("An error occured");
-            e.printStackTrace();
-        }
-    }
-
     private void writeIntoRankingFile() {
         try {
             FileWriter myWriter = new FileWriter("output.tsv");
@@ -244,69 +226,52 @@ public class Ranker extends JFrame{
     }
 
     private void loadProgress() {
-        try {
-            File saveFile = new File("Ranking_Progress.tsv");
-            if (saveFile.createNewFile()) {
-                System.out.println("File created: " + saveFile.getName());
-            } else {
-                System.out.println("File already exists");
-                try {
-                    FileReader savedProgress = new FileReader(saveFile);
-                    Scanner saveScanner = new Scanner(savedProgress);
+        File saveFile = new File("Ranking_Progress.tsv");
+            try {
+                FileReader savedProgress = new FileReader(saveFile);
+                Scanner saveScanner = new Scanner(savedProgress);
 
-                    while (saveScanner.hasNextLine()) {
-                        finalRankedList.add(saveScanner.nextLine());
-                    }
-                    saveScanner.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                while (saveScanner.hasNextLine()) {
+                    finalRankedList.add(saveScanner.nextLine());
                 }
-            }
-
-            File seed = new File("seed.txt");
-            if (seed.createNewFile()) {
-                System.out.println("File created: " + seed.getName());
-            } else {
-                System.out.println("File already exists");
-                try {
-                    FileReader seedProgress = new FileReader(seed);
-                    Scanner seedScanner = new Scanner(seedProgress);
-
-                    while (seedScanner.hasNextInt()) {
-                        whichEntryNext.add(seedScanner.nextInt());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+                savedProgress.close();
+                saveScanner.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-    }
+
+        File seed = new File("seed.txt");
+            try {
+                FileReader seedProgress = new FileReader(seed);
+                Scanner seedScanner = new Scanner(seedProgress);
+
+                while (seedScanner.hasNextInt()) {
+                    whichEntryNext.add(seedScanner.nextInt());
+                }
+                seedProgress.close();
+                seedScanner.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     private void saveProgress() {
         try {
             FileWriter saveFileWriter = new FileWriter("Ranking_Progress.tsv");
             Iterator<String> fRL = finalRankedList.iterator();
             while(fRL.hasNext()) {
-                saveFileWriter.write(fRL.next());
+                saveFileWriter.write(fRL.next() + "\n");
             }
             saveFileWriter.close();
 
             FileWriter seedWriter = new FileWriter("seed.txt");
             Iterator<Integer> wEN = whichEntryNext.iterator();
             while(wEN.hasNext()) {
-                seedWriter.write(wEN.next());
+                seedWriter.write(wEN.next() + "\n");
             }
             seedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-//    private void checkExistingFiles() {
-//        try {
-//            File saveFile = new File("output.tsv");
-//        }
-//    }
 }

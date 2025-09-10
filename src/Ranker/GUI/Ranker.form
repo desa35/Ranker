@@ -2,12 +2,12 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Ranker.GUI.Ranker">
   <grid id="27dc6" binding="contentPane" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="926" height="400"/>
+      <xy x="20" y="20" width="1024" height="768"/>
     </constraints>
     <properties>
       <alignmentX value="0.5"/>
       <autoscrolls value="false"/>
-      <minimumSize width="926" height="164"/>
+      <minimumSize width="1024" height="768"/>
       <preferredSize width="1024" height="768"/>
     </properties>
     <border type="none"/>
@@ -98,24 +98,6 @@
           <preferredSize width="463" height="86"/>
           <rows value="3"/>
           <wrapStyleWord value="true"/>
-        </properties>
-      </component>
-      <component id="1d4a2" class="javax.swing.JButton" binding="saveProgress">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Speichern"/>
-        </properties>
-      </component>
-      <component id="82d32" class="javax.swing.JButton" binding="undoDecision">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Rückgängig"/>
         </properties>
       </component>
     </children>
