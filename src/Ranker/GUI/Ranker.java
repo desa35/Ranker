@@ -56,7 +56,7 @@ public class Ranker extends JFrame{
         setLocationRelativeTo(null);
 
         try {
-            File myObj = new File("shortTest.tsv");
+            File myObj = new File("list.tsv");
             FileReader input = new FileReader(myObj);
             Scanner sc = new Scanner(input);
 

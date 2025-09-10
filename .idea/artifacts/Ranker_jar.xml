@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Ranker:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Ranker_jar</output-path>
+    <root id="archive" name="Ranker.jar">
+      <element id="module-output" name="Ranker" />
+    </root>
+  </artifact>
+</component>
