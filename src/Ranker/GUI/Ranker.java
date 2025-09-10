@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -114,7 +117,9 @@ public class Ranker extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 newEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
                 if (finalRankedList.size() == entries.size()) {
-                    System.out.println(finalRankedList);
+                    createRankingFile(finalRankedList);
+                    setVisible(false);
+                    return;
                 }
                 if (tempRankedList.isEmpty()) {
                     newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
@@ -130,7 +135,9 @@ public class Ranker extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 comparisonEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
                 if (finalRankedList.size() == entries.size()) {
-                    System.out.println(finalRankedList);
+                    createRankingFile(finalRankedList);
+                    setVisible(false);
+                    return;
                 }
                 if (tempRankedList.isEmpty()) {
                     newEntrySetup(entries,descriptions, tempRankedList, finalRankedList, whichEntryNext);
@@ -140,6 +147,7 @@ public class Ranker extends JFrame{
                 setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
             }
         });
+
     }
 
     private void newEntrySetup(HashMap entries, HashMap descriptions, ArrayList tempRankedList, ArrayList finalRankedList, List whichEntryNext) {
@@ -171,8 +179,6 @@ public class Ranker extends JFrame{
 
                         // Removes irrelevant half of the list (Anything worse than current comparison including itself)
                         for (int i = tempRankedList.size() - 1; i >= 0; i--) {
-                            System.out.println("cEI: " + comparisonEntryIndex);
-                            System.out.println("i: " + i);
                             if (comparisonEntryIndex >= i) {
                                 tempRankedList.remove(i);
                             }
@@ -196,4 +202,38 @@ public class Ranker extends JFrame{
                     }
     }
 
+    private void createRankingFile(ArrayList finalRankedList) {
+        try {
+            File output = new File("output.tsv");
+            if (output.createNewFile()) {
+                System.out.println("File created: " + output.getName());
+            } else {
+                System.out.println("File already exists");
+            }
+            writeIntoRankingFile(finalRankedList);
+        } catch (IOException e) {
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
+    }
+
+    private void writeIntoRankingFile(ArrayList finalRankedList) {
+        try {
+            FileWriter myWriter = new FileWriter("output.tsv");
+            int score = 0;
+            Iterator<String> it = finalRankedList.iterator();
+            while(it.hasNext()) {
+                if (score == 0) {
+                    myWriter.write("Name\tPunkte\n");
+                }
+                myWriter.write(it.next() + "\t" + score + "\n");
+                score++;
+            }
+            myWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
+    }
 }
