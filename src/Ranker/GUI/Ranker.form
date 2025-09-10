@@ -104,6 +104,21 @@
           <wrapStyleWord value="true"/>
         </properties>
       </component>
+      <component id="d495c" class="javax.swing.JButton" binding="undoChoice">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <font name="Arial Black" size="20"/>
+          <margin top="10" left="10" bottom="10" right="10"/>
+          <maximumSize width="102" height="43"/>
+          <minimumSize width="102" height="43"/>
+          <opaque value="true"/>
+          <preferredSize width="102" height="43"/>
+          <text value="Rückgängig"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

@@ -24,6 +24,7 @@ public class Ranker extends JFrame{
     private JLabel nameComparisonEntry;
     private JTextArea descNewEntry;
     private JTextArea descComparisonEntry;
+    private JButton undoChoice;
 
     HashMap<Integer, String> entries = new HashMap<Integer, String>();
     HashMap<String, String> descriptions = new HashMap<String, String>();
@@ -34,9 +35,11 @@ public class Ranker extends JFrame{
 
     // Sets up number array for randomization
     List<Integer> whichEntryNext = new ArrayList<>();
+    List<Integer> undoChoiceSeedStack = new ArrayList<>();
 
     int newEntryIndex = 0;
     int comparisonEntryIndex = 0;
+    int undoIndex = 0;
 
     String newEntryName = "";
     String comparisonEntryName = "";
@@ -81,8 +84,6 @@ public class Ranker extends JFrame{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
-        System.out.println("entries: " + entries);
 
         loadProgress();
 
@@ -152,9 +153,24 @@ public class Ranker extends JFrame{
             }
         });
 
+//        undoChoice.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                undoChoice();
+//                if (undoChoice()) {
+//                    newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
+//                    getComparisonEntry(tempRankedList);
+//                    setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
+//                }
+//            }
+//        });
+
     }
 
     private void newEntrySetup(HashMap entries, HashMap descriptions, ArrayList tempRankedList, ArrayList finalRankedList, List whichEntryNext) {
+//        if (!finalRankedList.isEmpty()) {
+//            undoChoiceSeedStack.add(newEntryIndex);
+//        }
         newEntryIndex = (int) whichEntryNext.remove(0);
         newEntryName = (String) entries.get(newEntryIndex);
         newEntryDesc = (String) descriptions.get(newEntryName);
@@ -253,6 +269,20 @@ public class Ranker extends JFrame{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+//        File stack = new File("log.txt");
+//            try {
+//                FileReader stackProgress = new FileReader(stack);
+//                Scanner stackScanner = new Scanner(stackProgress);
+//
+//                while (stackScanner.hasNextInt()) {
+//                    undoChoiceSeedStack.add(stackScanner.nextInt());
+//                }
+//                stackProgress.close();
+//                stackScanner.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
 
     private void saveProgress() {
@@ -270,12 +300,27 @@ public class Ranker extends JFrame{
                 seedWriter.write(wEN.next() + "\n");
             }
             seedWriter.close();
+
+//            FileWriter stackWriter = new FileWriter("log.txt");
+//            Iterator<Integer> uCSS = undoChoiceSeedStack.iterator();
+//            while(uCSS.hasNext()) {
+//                stackWriter.write(uCSS.next() + "\n");
+//            }
+//            stackWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void undoChoice() {
-
+    private boolean undoChoice() {
+        if (undoChoiceSeedStack.isEmpty()) {
+            return false;
+        }
+        undoIndex = undoChoiceSeedStack.remove(0);
+        whichEntryNext.add(0, undoIndex);
+        finalRankedList.remove(entries.get(undoIndex));
+        newEntryIndex = undoIndex;
+        tempRankedList.clear();
+        return true;
     }
 }
