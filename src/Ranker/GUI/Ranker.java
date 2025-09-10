@@ -19,8 +19,6 @@ public class Ranker extends JFrame{
     private JLabel decisionPrompt;
     private JLabel nameNewEntry;
     private JLabel nameComparisonEntry;
-//    private JLabel descNewEntry;
-//    private JLabel descComparisonEntry;
     private JTextArea descNewEntry;
     private JTextArea descComparisonEntry;
 
@@ -36,7 +34,6 @@ public class Ranker extends JFrame{
 
     int newEntryIndex = 0;
     int comparisonEntryIndex = 0;
-    int middleEntryOfRankedIndex = 0;
 
     String newEntryName = "";
     String comparisonEntryName = "";
@@ -91,21 +88,21 @@ public class Ranker extends JFrame{
 
         // No comparisons were left after the last round meaning the new Entry has been successfully ranked and a new one is required
         // Currently always true. Condition is for future "Save & Continue" functionality
-//        if (tempRankedList.isEmpty() && !entries.isEmpty()) {
+        if (tempRankedList.isEmpty() && !entries.isEmpty()) {
             newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
-//        }
+        }
 
         // Adds newly chosen list entry to final ranking (First entry so no choice required)
         // Currently always true. Condition is for future "Save & Continue" functionality
-//        if (finalRankedList.isEmpty()) {
+        if (finalRankedList.isEmpty()) {
             finalRankedList.add(entries.get(newEntryIndex));
             tempRankedList.clear();
-//        }
+        }
 
         // Currently always true. Condition is for future "Save & Continue" functionality
-//        if (tempRankedList.isEmpty() && !entries.isEmpty()) {
+        if (tempRankedList.isEmpty() && !entries.isEmpty()) {
             newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
-//        }
+        }
 
         getComparisonEntry(tempRankedList);
         setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
@@ -115,17 +112,43 @@ public class Ranker extends JFrame{
         newEntryWins.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("tRL pre: " + tempRankedList);
+                System.out.println("fRL pre: " + finalRankedList);
                 newEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
+                System.out.println("tRL post: " + tempRankedList);
+                System.out.println("fRL post: " + finalRankedList);
+                System.out.println("------------------");
+                if (finalRankedList.size() == entries.size()) {
+                    System.out.println(finalRankedList);
+                }
                 if (tempRankedList.isEmpty()) {
                     newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
                 }
+                    getComparisonEntry(tempRankedList);
+
                 setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
             }
         });
 
         comparisonEntryWins.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {comparisonEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex, middleEntryOfRankedIndex);}
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("tRL pre: " + tempRankedList);
+                System.out.println("fRL pre: " + finalRankedList);
+                comparisonEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
+                System.out.println("tRL post: " + tempRankedList);
+                System.out.println("fRL post: " + finalRankedList);
+                System.out.println("------------------");
+                if (finalRankedList.size() == entries.size()) {
+                    System.out.println(finalRankedList);
+                }
+                if (tempRankedList.isEmpty()) {
+                    newEntrySetup(entries,descriptions, tempRankedList, finalRankedList, whichEntryNext);
+                }
+                    getComparisonEntry(tempRankedList);
+
+                setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
+            }
         });
     }
 
@@ -137,9 +160,9 @@ public class Ranker extends JFrame{
     }
 
     private void getComparisonEntry(ArrayList tempRankedList) {
-        middleEntryOfRankedIndex = (int) Math.floor((tempRankedList.size() - 1) / 2.0);
-        comparisonEntryName = (String) tempRankedList.get(middleEntryOfRankedIndex);
-        comparisonEntryIndex = tempRankedList.indexOf(comparisonEntryName);
+        // Gets the middle entry of valid comparison to efficiently evaluate placement of new entry
+        comparisonEntryIndex = (int) Math.floor((tempRankedList.size() - 1) / 2.0);
+        comparisonEntryName = (String) tempRankedList.get(comparisonEntryIndex);
         comparisonEntryDesc = descriptions.get(comparisonEntryName);
     }
 
@@ -157,7 +180,9 @@ public class Ranker extends JFrame{
                     } else {
 
                         // Removes irrelevant half of the list (Anything worse than current comparison including itself)
-                        for (int i = tempRankedList.size(); i >= 0; i--) {
+                        for (int i = tempRankedList.size() - 1; i >= 0; i--) {
+                            System.out.println("cEI: " + comparisonEntryIndex);
+                            System.out.println("i: " + i);
                             if (comparisonEntryIndex >= i) {
                                 tempRankedList.remove(i);
                             }
@@ -166,8 +191,8 @@ public class Ranker extends JFrame{
                     }
     }
 
-    private void comparisonEntryWins(HashMap entries, ArrayList tempRankedList, ArrayList finalRankedList, String comparisonEntryName, int newEntryIndex, int comparisonEntryIndex, int middleEntryOfRankedIndex) {
-        if (middleEntryOfRankedIndex == 0) {
+    private void comparisonEntryWins(HashMap entries, ArrayList tempRankedList, ArrayList finalRankedList, String comparisonEntryName, int newEntryIndex, int comparisonEntryIndex) {
+        if (comparisonEntryIndex == 0) {
                         finalRankedList.add(finalRankedList.indexOf(comparisonEntryName), entries.get(newEntryIndex));
                         tempRankedList.clear();
                     } else {
