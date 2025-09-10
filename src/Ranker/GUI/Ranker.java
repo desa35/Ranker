@@ -112,12 +112,7 @@ public class Ranker extends JFrame{
         newEntryWins.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("tRL pre: " + tempRankedList);
-                System.out.println("fRL pre: " + finalRankedList);
                 newEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
-                System.out.println("tRL post: " + tempRankedList);
-                System.out.println("fRL post: " + finalRankedList);
-                System.out.println("------------------");
                 if (finalRankedList.size() == entries.size()) {
                     System.out.println(finalRankedList);
                 }
@@ -133,12 +128,7 @@ public class Ranker extends JFrame{
         comparisonEntryWins.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("tRL pre: " + tempRankedList);
-                System.out.println("fRL pre: " + finalRankedList);
                 comparisonEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
-                System.out.println("tRL post: " + tempRankedList);
-                System.out.println("fRL post: " + finalRankedList);
-                System.out.println("------------------");
                 if (finalRankedList.size() == entries.size()) {
                     System.out.println(finalRankedList);
                 }
