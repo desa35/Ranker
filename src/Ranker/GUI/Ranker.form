@@ -20,7 +20,7 @@
         <properties>
           <font name="Arial Black" size="20"/>
           <margin top="10" left="10" bottom="10" right="10"/>
-          <text value="Links"/>
+          <text value="Left"/>
         </properties>
       </component>
       <component id="ea4ad" class="javax.swing.JButton" binding="comparisonEntryWins">
@@ -31,7 +31,7 @@
         <properties>
           <font name="Arial Black" size="20"/>
           <margin top="10" left="10" bottom="10" right="10"/>
-          <text value="Rechts"/>
+          <text value="Right"/>
         </properties>
       </component>
       <component id="c034c" class="javax.swing.JLabel" binding="decisionPrompt">
@@ -116,7 +116,7 @@
           <minimumSize width="102" height="43"/>
           <opaque value="true"/>
           <preferredSize width="102" height="43"/>
-          <text value="Rückgängig"/>
+          <text value="Undo"/>
         </properties>
       </component>
     </children>

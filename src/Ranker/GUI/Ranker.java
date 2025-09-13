@@ -26,8 +26,8 @@ public class Ranker extends JFrame{
     private JTextArea descComparisonEntry;
     private JButton undoChoice;
 
-    HashMap<Integer, String> entries = new HashMap<Integer, String>();
-    HashMap<String, String> descriptions = new HashMap<String, String>();
+    HashMap<Integer, String> entries = new HashMap<>();
+    HashMap<String, String> descriptions = new HashMap<>();
 
     // Sets up what will be the final Array containing the rankings
     ArrayList<String> finalRankedList = new ArrayList<>();
@@ -39,7 +39,6 @@ public class Ranker extends JFrame{
 
     int newEntryIndex = 0;
     int comparisonEntryIndex = 0;
-    int undoIndex = 0;
 
     String newEntryName = "";
     String comparisonEntryName = "";
@@ -97,7 +96,7 @@ public class Ranker extends JFrame{
 
         // No comparisons were left after the last round meaning the new Entry has been successfully ranked and a new one is required
         if (tempRankedList.isEmpty() && !entries.isEmpty()) {
-            newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
+            newEntrySetup();
         }
 
         // Adds newly chosen list entry to final ranking (First entry so no choice required)
@@ -107,18 +106,19 @@ public class Ranker extends JFrame{
         }
 
         if (tempRankedList.isEmpty() && !entries.isEmpty()) {
-            newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
+            newEntrySetup();
         }
 
-        getComparisonEntry(tempRankedList);
-        setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
+        getComparisonEntry();
+        setLabels();
 
         setVisible(true);
+        undoChoice.setEnabled(false);
 
         newEntryWins.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
+                newEntryWins();
                 if (finalRankedList.size() == entries.size()) {
                     writeIntoRankingFile();
                     setVisible(false);
@@ -126,18 +126,19 @@ public class Ranker extends JFrame{
                 }
                 if (tempRankedList.isEmpty()) {
                     saveProgress();
-                    newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
+                    undoChoice.setEnabled(true);
+                    newEntrySetup();
                 }
-                    getComparisonEntry(tempRankedList);
+                    getComparisonEntry();
 
-                setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
+                setLabels();
             }
         });
 
         comparisonEntryWins.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                comparisonEntryWins(entries, tempRankedList, finalRankedList, comparisonEntryName, newEntryIndex, comparisonEntryIndex);
+                comparisonEntryWins();
                 if (finalRankedList.size() == entries.size()) {
                     writeIntoRankingFile();
                     setVisible(false);
@@ -145,53 +146,49 @@ public class Ranker extends JFrame{
                 }
                 if (tempRankedList.isEmpty()) {
                     saveProgress();
-                    newEntrySetup(entries,descriptions, tempRankedList, finalRankedList, whichEntryNext);
+                    undoChoice.setEnabled(true);
+                    newEntrySetup();
                 }
-                    getComparisonEntry(tempRankedList);
+                    getComparisonEntry();
 
-                setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
+                setLabels();
             }
         });
 
-//        undoChoice.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                undoChoice();
-//                if (undoChoice()) {
-//                    newEntrySetup(entries, descriptions, tempRankedList, finalRankedList, whichEntryNext);
-//                    getComparisonEntry(tempRankedList);
-//                    setLabels(nameNewEntry, nameComparisonEntry, descNewEntry, descComparisonEntry, newEntryName, comparisonEntryName, newEntryDesc, comparisonEntryDesc);
-//                }
-//            }
-//        });
+        undoChoice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                undoChoice();
+                newEntrySetup();
+                getComparisonEntry();
+                setLabels();
+            }
+        });
 
     }
 
-    private void newEntrySetup(HashMap entries, HashMap descriptions, ArrayList tempRankedList, ArrayList finalRankedList, List whichEntryNext) {
-//        if (!finalRankedList.isEmpty()) {
-//            undoChoiceSeedStack.add(newEntryIndex);
-//        }
-        newEntryIndex = (int) whichEntryNext.remove(0);
-        newEntryName = (String) entries.get(newEntryIndex);
-        newEntryDesc = (String) descriptions.get(newEntryName);
+    private void newEntrySetup() {
+        newEntryIndex = whichEntryNext.get(finalRankedList.size());
+        newEntryName = entries.get(newEntryIndex);
+        newEntryDesc = descriptions.get(newEntryName);
         tempRankedList.addAll(finalRankedList);
     }
 
-    private void getComparisonEntry(ArrayList tempRankedList) {
+    private void getComparisonEntry() {
         // Gets the middle entry of valid comparison to efficiently evaluate placement of new entry
         comparisonEntryIndex = (int) Math.floor((tempRankedList.size() - 1) / 2.0);
-        comparisonEntryName = (String) tempRankedList.get(comparisonEntryIndex);
+        comparisonEntryName = tempRankedList.get(comparisonEntryIndex);
         comparisonEntryDesc = descriptions.get(comparisonEntryName);
     }
 
-    private void setLabels(JLabel nameNewEntry, JLabel nameComparisonEntry, JTextArea descNewEntry, JTextArea descComparisonEntry, String newEntryName, String comparisonEntryName, String newEntryDesc, String comparisonEntryDesc) {
+    private void setLabels() {
         nameNewEntry.setText(newEntryName);
         nameComparisonEntry.setText(comparisonEntryName);
         descNewEntry.setText(newEntryDesc);
         descComparisonEntry.setText(comparisonEntryDesc);
     }
 
-    private void newEntryWins(HashMap entries, ArrayList tempRankedList, ArrayList finalRankedList, String comparisonEntryName, int newEntryIndex, int comparisonEntryIndex) {
+    private void newEntryWins() {
         if (tempRankedList.size() == 1) {
                         finalRankedList.add(finalRankedList.indexOf(comparisonEntryName) + 1, entries.get(newEntryIndex));
                         tempRankedList.clear();
@@ -207,7 +204,7 @@ public class Ranker extends JFrame{
                     }
     }
 
-    private void comparisonEntryWins(HashMap entries, ArrayList tempRankedList, ArrayList finalRankedList, String comparisonEntryName, int newEntryIndex, int comparisonEntryIndex) {
+    private void comparisonEntryWins() {
         if (comparisonEntryIndex == 0) {
                         finalRankedList.add(finalRankedList.indexOf(comparisonEntryName), entries.get(newEntryIndex));
                         tempRankedList.clear();
@@ -269,20 +266,6 @@ public class Ranker extends JFrame{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-//        File stack = new File("log.txt");
-//            try {
-//                FileReader stackProgress = new FileReader(stack);
-//                Scanner stackScanner = new Scanner(stackProgress);
-//
-//                while (stackScanner.hasNextInt()) {
-//                    undoChoiceSeedStack.add(stackScanner.nextInt());
-//                }
-//                stackProgress.close();
-//                stackScanner.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
         }
 
     private void saveProgress() {
@@ -300,27 +283,16 @@ public class Ranker extends JFrame{
                 seedWriter.write(wEN.next() + "\n");
             }
             seedWriter.close();
-
-//            FileWriter stackWriter = new FileWriter("log.txt");
-//            Iterator<Integer> uCSS = undoChoiceSeedStack.iterator();
-//            while(uCSS.hasNext()) {
-//                stackWriter.write(uCSS.next() + "\n");
-//            }
-//            stackWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean undoChoice() {
-        if (undoChoiceSeedStack.isEmpty()) {
-            return false;
-        }
-        undoIndex = undoChoiceSeedStack.remove(0);
-        whichEntryNext.add(0, undoIndex);
-        finalRankedList.remove(entries.get(undoIndex));
-        newEntryIndex = undoIndex;
+    private void undoChoice() {
+        finalRankedList.remove(entries.get(whichEntryNext.get(finalRankedList.size() - 1)));
         tempRankedList.clear();
-        return true;
+        if (finalRankedList.size() <= 1) {
+            undoChoice.setEnabled(false);
+        }
     }
 }
