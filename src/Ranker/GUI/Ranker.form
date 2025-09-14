@@ -42,7 +42,7 @@
         <properties>
           <focusTraversalPolicyProvider value="false"/>
           <font name="SansSerif" size="42" style="1"/>
-          <text value="Welche dieser beiden findest du besser?"/>
+          <text value="Which of these options do you prefer?"/>
         </properties>
       </component>
       <component id="a33b7" class="javax.swing.JLabel" binding="nameNewEntry">
