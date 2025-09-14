@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Locale;
 
 import static java.util.Collections.shuffle;
 
@@ -35,7 +36,6 @@ public class Ranker extends JFrame{
 
     // Sets up number array for randomization
     List<Integer> whichEntryNext = new ArrayList<>();
-    List<Integer> undoChoiceSeedStack = new ArrayList<>();
 
     int newEntryIndex = 0;
     int comparisonEntryIndex = 0;
@@ -46,6 +46,9 @@ public class Ranker extends JFrame{
     String newEntryDesc = "";
     String comparisonEntryDesc = "";
 
+    Locale currentLocale = Locale.getDefault();
+    String language = currentLocale.getLanguage();
+
     public void RankingAlgorithm() {
 
         setTitle("Ranker");
@@ -53,13 +56,13 @@ public class Ranker extends JFrame{
         setContentPane(contentPane);
         pack();
 
-        decisionPrompt.setText("Welcher dieser beiden Optionen ist besser?");
+        loadLanguage();
 
         setLocationRelativeTo(null);
 
         try {
-            File myObj = new File("list.tsv");
-            FileReader input = new FileReader(myObj);
+            File list = new File("list.tsv");
+            FileReader input = new FileReader(list);
             Scanner sc = new Scanner(input);
 
             String name;
@@ -293,6 +296,46 @@ public class Ranker extends JFrame{
         tempRankedList.clear();
         if (finalRankedList.size() <= 1) {
             undoChoice.setEnabled(false);
+        }
+    }
+
+    private void loadLanguage() {
+        try {
+            File defaultLanguageFile = new File("languages/en.txt");
+            File languageFile = new File("languages/" + language + ".txt");
+
+            if (!languageFile.exists()) {
+                languageFile = defaultLanguageFile;
+            }
+
+            FileReader input = new FileReader(languageFile);
+            Scanner sc = new Scanner(input);
+
+            String label;
+            String text;
+
+            while (sc.hasNextLine()) {
+                label = sc.next();
+                text = sc.nextLine().trim();
+
+                switch(label) {
+                    case "decisionPrompt":
+                        decisionPrompt.setText(text);
+                        break;
+                    case "newEntryWins":
+                        newEntryWins.setText(text);
+                        break;
+                    case "comparisonEntryWins":
+                        comparisonEntryWins.setText(text);
+                        break;
+                    case "undoChoice":
+                        undoChoice.setText(text);
+                        break;
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

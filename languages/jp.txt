@@ -1,0 +1,4 @@
+decisionPrompt  どちらがお好みですか？
+newEntryWins    左
+comparisonEntryWins 右
+undoChoice 元に戻す

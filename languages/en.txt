@@ -1,0 +1,4 @@
+decisionPrompt  Which of these options do you prefer?
+newEntryWins    Left
+comparisonEntryWins Right
+undoChoice Undo

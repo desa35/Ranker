@@ -1,0 +1,4 @@
+decisionPrompt  Mistä näistä pidät eniten?
+newEntryWins    Vasen
+comparisonEntryWins Oikea
+undoChoice Kumoa

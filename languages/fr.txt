@@ -1,0 +1,4 @@
+decisionPrompt  Laquelle de ces options préférez-vous?
+newEntryWins    Gauche
+comparisonEntryWins Droite
+undoChoice Annuler

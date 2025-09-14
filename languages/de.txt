@@ -1,0 +1,4 @@
+decisionPrompt  Welche dieser beiden Optionen ist besser?
+newEntryWins    Links
+comparisonEntryWins Rechts
+undoChoice Rückgängig
