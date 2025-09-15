@@ -26,6 +26,6 @@ contains the order of entries from worst to best along with a score for each ent
 
 Future Updates will feature:
 
-* An undo option to revert your most recent choice
+* An undo option to revert your most recent choice (Available with v0.2)
 * Alternative point distribution algorithms
 * Merging of several rankings into one
