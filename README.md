@@ -16,8 +16,8 @@ your progress.
 
 ### Files
 
-Ranker.jar at this time requires a .tsv file with 2 columns. The first column presents the name
-of the entries while the second column provides a description.
+Ranker.jar at this time requires a .tsv file with 2 columns. The first column should present the name
+of the entries while the second column is intended to provide a description.
 
 The output will then be two files that save your progress as well as a final ranking file that
 contains the order of entries from worst to best along with a score for each entry.
